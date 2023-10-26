@@ -1,0 +1,50 @@
+wordcout spark
+touch lad3data.txt
+nano lad3data.txt
+
+spark-shell
+
+
+tạo một thư mục chứa data (data.txt)
+ 
+sử dụng lệnh val text = sc.textFile("đường link file ")
+
+val text = sc.textFile("data")
+
+text.collect 
+
+val counts = text.flatMap(line=> line.split(""))
+
+counts.collect
+
+val mapf=counts.map(word=>(word,1))
+mapf.collect
+
+val reducef=mapf.reduceByKey(_ + _)
+reducef.collect
+
+reducef.saveAsTextFile("spark_outputdata")
+
+{
+val text = sc.textFile("data")z
+
+val words = text.flatMap(line => line.split(" "))
+
+val wordCounts = words.map(word => (word, 1)).reduceByKey(_ + _)
+
+wordCounts.collect().foreach(println)
+}
+
+
+// Lệnh tạo RDD chứa tất cả các từ từ tập dữ liệu text
+val counts = text.flatMap(line => line.split(" "))
+
+// Lệnh đếm số từ
+val wordCounts = counts.map(word => (word, 1)).reduceByKey(_ + _)
+
+// Lệnh thu thập kết quả và in ra
+wordCounts.collect().foreach(println)
+
+// Lưu kết quả vào một tệp văn bản
+wordCounts.saveAsTextFile("lad3dataoutput")
+
