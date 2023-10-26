@@ -1,0 +1,64 @@
+spark sql demo
+==============
+tạo một file .csv trong teminal
+
+touch mydata.csv
+touch laddata.csv
+
+mở file vừa tạo ra để cho dữ liệu 
+
+nano mydata.csv
+nano demodata.csv
+
+dữ liệu được định dang cách nhau bởi dấu phẩy 
+
+
+name,age,email
+Alice,30,alice@email.com
+Bob,35,bob@email.com
+Charlie,25,charlie@email.com
+================================
+ten,tuoi,namsinh
+anh,21,2002
+tai,35,1991
+hien,31,1992
+dai,10,2013
+
+bắt đầu sử dụng spark 
+=======================
+dùng lệnh
+spark-shell
+
+// Tạo một DataFrame từ một tập tin CSV ví dụ
+val data = spark.read.csv("DATA.csv")
+
+val data = spark.read.option("header", "true").csv("DATA.csv")
+
+// Hiển thị dữ liệu
+data.show()
+
+// Đăng ký DataFrame như một bảng tạm thời
+data.createOrReplaceTempView("mytable")
+
+// Thực hiện truy vấn SQL
+val result = spark.sql("SELECT * FROM mytable WHERE age > 30")
+result.show()
+============================================================
+
+
+lệnh truy vấn 
+===============
+Hiển thị dữ liệu:
+data.show()
+
+Lọc dữ liệu:
+val filteredData = data.filter(data("age") > 30)
+
+filteredData.show()
+Lựa chọn cột cụ thể:
+val selectedData = data.select("name", "age")
+
+selectedData.show()
+Sắp xếp dữ liệu:
+val sortedData = data.sort("age")
+sortedData.show()
